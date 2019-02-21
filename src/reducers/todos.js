@@ -15,6 +15,10 @@ const todos = (state = [], action) => {
           ? {...todo, completed: !todo.completed}
           : todo
       )
+    case 'UPDATE_TODO':
+      return state.map(todo => {
+        return (todo.id === action.todo.id) ? {...todo, text: action.todo.text } : todo
+      });
     case 'GET_TODO':
       return action.todos
     default:

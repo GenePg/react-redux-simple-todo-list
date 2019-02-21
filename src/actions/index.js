@@ -15,6 +15,11 @@ export const toggleTodo = id => ({
   id
 })
 
+export const updateTodo = todo => ({
+  type: 'UPDATE_TODO',
+  todo,
+})
+
 export const getTodo = (todos) => ({
   type: 'GET_TODO',
   todos,
