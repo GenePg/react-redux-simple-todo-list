@@ -19,6 +19,8 @@ const todos = (state = [], action) => {
       return state.map(todo => {
         return (todo.id === action.todo.id) ? {...todo, text: action.todo.text } : todo
       });
+    case 'DELETE_TODO':
+      return state.filter(todo => todo.id !== action.id)
     case 'GET_TODO':
       return action.todos
     default:

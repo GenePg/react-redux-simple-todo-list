@@ -1,11 +1,24 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { updateTodo } from '../actions/index'
+import { updateTodo, deleteTodo } from '../actions/index'
 
 const Todo = ({ dispatch, id, onClick, completed, text }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [todoText, setTodoText] = useState(text);
+
+  const onClickDeleteTodo = async() => {
+    try {
+      const res = await fetch(`/api/todos/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        dispatch(deleteTodo(id))
+      }
+    } catch(err) {
+      console.log('err', err)
+    }
+  }
 
   const onClickUpdateTodo = async () => {
     try {
@@ -68,9 +81,9 @@ const Todo = ({ dispatch, id, onClick, completed, text }) => {
   return (
     <li>
       { handleRenderIsEditable() }
-    {text}
-  </li>
-)
+      <button
+        onClick={() => onClickDeleteTodo()}
+      >X</button>
     </li>
   )
 }
